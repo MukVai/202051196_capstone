@@ -2,17 +2,17 @@ pipeline {
     agent any
 
      environment{
-       registryCredential = 'ecr:<zone>:<CredentialID>'
-       appRegistry = "<Registry Name>"
-       capstoneRegistry = "<Registry Url>"
-       cluster = "<Cluster Name>"
-        service = "<Service Name>"
+       registryCredential = '202051196'
+       appRegistry = "350936383096.dkr.ecr.ap-south-1.amazonaws.com/202051196_capstone_project"
+       capstoneRegistry = "<https://350936383096.dkr.ecr.ap-south-1.amazonaws.com>"
+       cluster = "202051196_capstone_cluster"
+       service = "202051196_service"
    }
 
     stages {
         stage('Clone Website') {
             steps {
-                git url:'https://github.com/Aryanhac/Capstone-Project'
+                git url:'https://github.com/MukVai/202051196_capstone'
             }
         }
 
@@ -47,7 +47,7 @@ pipeline {
                 branch "master"
          }
          steps{
-            withAWS(credentials: '<CredentialID>', region: 'us-east-1'){
+            withAWS(credentials: '<202051196>', region: 'us-east-1'){
                 sh 'aws ecs update-service --cluster ${cluster} --service ${service} --force-new-deployment'
             }
          }
